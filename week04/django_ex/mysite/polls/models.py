@@ -1,15 +1,18 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib import admin
 import datetime
 
 # Create your models here.
 
 # 질문 모델
 class Question(models.Model):
-    question_text = models.CharField(max_length = 200)
-    pub_date = models.DateTimeField('date published')
+    # verbose_name: admin 페이지에서 출력될 이름
+    question_text = models.CharField(max_length = 200, verbose_name = "질문")
+    pub_date = models.DateTimeField(auto_now_add = True, verbose_name = "생성일")
 
     # 생성한 지 하루 이내인지 확인하는 메서드
+    @admin.display(boolean = True, description = "최근 생성(하루 기준)")
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days = 1)
 
