@@ -20,5 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     # 'polls/'로 들어오는 요청은 polls app의 urls.py에서 처리
     path('polls/', include('polls.urls')),
+    path('rest/', include('polls_api.urls')),
     path('admin/', admin.site.urls),
 ]
