@@ -11,6 +11,11 @@ class Question(models.Model):
     question_text = models.CharField(max_length = 200, verbose_name = "질문")
     pub_date = models.DateTimeField(auto_now_add = True, verbose_name = "생성일")
 
+    # owner라는 User 객체는 여러 개의 Question 객체를 가짐
+    # User 객체에서 Question 객체를 접근할 때 "questions"라는 이름을 사용
+    # owner가 삭제되면 Question 객체도 삭제(cascade)
+    owner = models.ForeignKey("auth.User", related_name = "questions", on_delete = models.CASCADE, null = True)
+
     # 생성한 지 하루 이내인지 확인하는 메서드
     @admin.display(boolean = True, description = "최근 생성(하루 기준)")
     def was_published_recently(self):

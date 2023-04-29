@@ -1,7 +1,9 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.db.models import F
+from django.views import generic
+from django.contrib.auth.forms import UserCreationForm
 from .models import *
 
 def index(request):
@@ -43,3 +45,8 @@ def result(request, question_id):
     question = get_object_or_404(Question, pk = question_id)
 
     return render(request, "polls/result.html", {"question": question})
+
+class SignUpView(generic.CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy("user-list")
+    template_name = "registration/signup.html"

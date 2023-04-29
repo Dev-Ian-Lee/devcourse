@@ -1,0 +1,11 @@
+<h2>회원가입</h2>
+
+<form method = "post">
+    {% csrf_token %}
+
+    <!--SignUpView 클래스에 정의된 UserCreationForm을 불러와서 사용-->
+    {{ form.as_p }}
+
+    <button type = "submit">가입하기</button>
+
+</form>
